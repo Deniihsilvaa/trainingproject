@@ -28,11 +28,14 @@ export default function Forms({
         e.preventDefault();
         
         try {
-            const result = await ApiLogin(email, password);
-            
-            if (result) {
+            const result = ApiLogin(email, password);
+            if (result && result.token) {
                 setDescription('Login successful');
                 navigate('/home');
+                let verificarToken = document.cookie.split(';').find(cookie => cookie.startsWith('token='))?.split('=')[1];
+                console.log("verificarToken",verificarToken)
+
+
             } else {
                 setDescription('Invalid email or password');
             }

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import DashboardLandingPage from '../pages/DashboardLandingPage';
 import Login from '../pages/Login';
@@ -8,8 +8,10 @@ import Home from '../pages/Home';
 import Users from '../pages/Users';
 import DashBoard from '../pages/DashBorad';
 import Request from '../pages/Request';
+import { useAuth } from '../Hooks/AuthContext';
 
 export default function AppRoutes() {
+    const { isAuthenticated } = useAuth();
     return (
         <Routes>
             <Route index element={
@@ -21,30 +23,33 @@ export default function AppRoutes() {
 
             <Route
                 path="/home"
-                element={<LayoutAdmin />}
+                element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
             >
                 <Route index element={<Home />} />
             </Route>
 
             <Route
                 path="/usuarios"
-                element={<LayoutAdmin />}
+                element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
             >
                 <Route index element={<Users />} />
             </Route>
 
             <Route
                 path="/dashboard"
-                element={<LayoutAdmin />}
+                element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
             >
                 <Route index element={<DashBoard />} />
             </Route>
             <Route
                 path="/request"
-                element={<LayoutAdmin />}
+                element={isAuthenticated ? <LayoutAdmin /> : <Navigate to="/" />}
             >
                 <Route index element={<Request />} />
             </Route>
+
+            {/* Rotas indefinidas */}
+            <Route path="*" element={<Navigate to="/" />} />
         </Routes>
     );
 }
