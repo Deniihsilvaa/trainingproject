@@ -10,11 +10,6 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   return (
     <div className="flex z-1000">
-      {/* Botão para abrir o menu no mobile */}
-      <button onClick={() => setIsOpen(!isOpen)} className="p-2 md:hidden">
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-
       {/* Sidebar */}
       <aside
         className={cn(
@@ -82,7 +77,7 @@ export default function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Overlay para fechar o menu no mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-50 md:hidden"
+          className="fixed inset-0 bg-gray-500 opacity-50 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
