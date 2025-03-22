@@ -24,16 +24,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
-    let tokenUser = ApiGetUser();
+    let tokenUser = document.cookie.split(';').find(cookie => cookie.startsWith('token='))?.split('=')[1];
 
-    if (tokenUser.token) {
+    if (tokenUser) {
       setUser({
-        id: tokenUser.token,
-        email: tokenUser.email,
-        name: tokenUser.user
+        id: tokenUser,
+        email: tokenUser,
+        name: tokenUser
       });
     }
-    navigate('/');
+    console.log("Dashboard");
     setLoading(false);
   }, []);
 
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: userData.email,
         name: userData.user
       });
-    } catch (error) {
+      } catch (error) {
       throw error;
     } finally {
       setLoading(false);

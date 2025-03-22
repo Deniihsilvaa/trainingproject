@@ -1,11 +1,14 @@
 import {Button} from 'primereact/button'
 import { Link } from 'react-router-dom';
 import { Menu } from 'lucide-react';
+import {useAuth} from '../../Hooks/AuthContext';
+
 interface HeaderProps {
     isOpen: boolean;
     setIsOpen: (isOpen: boolean) => void;
 }
 const Header: React.FC<HeaderProps> = ({ isOpen, setIsOpen }) =>{
+    const {logout} = useAuth();
     return (
         <div className="sticky top-0 w-full bg-gray-100 p-2 max-w-full " >
             <div className="flex justify-between">
@@ -22,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ isOpen, setIsOpen }) =>{
                 </div>  
                 <div>
                     <Link to="/">
-                        <Button label="logout" icon="pi pi-user" />
+                        <Button label="logout" icon="pi pi-user" onClick={logout} />
                     </Link>
                 </div>
             </div>

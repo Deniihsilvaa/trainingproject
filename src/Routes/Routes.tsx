@@ -9,6 +9,7 @@ import Users from '../pages/Users';
 import DashBoard from '../pages/DashBorad';
 import Request from '../pages/Request';
 import { useAuth } from '../Hooks/AuthContext';
+import NotFound from '../pages/NotFound';
 
 export default function AppRoutes() {
     const { isAuthenticated } = useAuth();
@@ -48,8 +49,12 @@ export default function AppRoutes() {
                 <Route index element={<Request />} />
             </Route>
 
-            {/* Rotas indefinidas */}
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route
+                path="*"
+                element={<LayoutAdmin />}
+            >
+                <Route path="*" element={<NotFound />} />
+            </Route>
         </Routes>
     );
 }

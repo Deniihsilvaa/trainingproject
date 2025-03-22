@@ -3,6 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { ApiLogin } from '../../Api/ApiLogin';
+import { useAuth } from '../../Hooks/AuthContext';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +21,7 @@ export default function Forms({
     setDescription
 }: LoginProps) {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -28,19 +30,11 @@ export default function Forms({
         e.preventDefault();
         
         try {
-            const result = ApiLogin(email, password);
-            if (result && result.token) {
-                setDescription('Login successful');
-                navigate('/home');
-                let verificarToken = document.cookie.split(';').find(cookie => cookie.startsWith('token='))?.split('=')[1];
-                console.log("verificarToken",verificarToken)
-
-
-            } else {
-                setDescription('Invalid email or password');
-            }
+            await login(email, password);
+            setDescription('Login successful');
+            navigate('/home');
         } catch (error) {
-            setDescription('Error logging in. Please try again.');
+            setDescription('Invalid email or password');
         }
 
         setShowDialog(true);
