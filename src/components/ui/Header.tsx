@@ -10,7 +10,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ isOpen, setIsOpen }) =>{
     const {logout} = useAuth();
     return (
-        <div className="sticky top-0 w-full bg-gray-100 p-2 max-w-full " >
+        <div className="sticky top-0 w-full bg-gray-900 p-2 max-w-full h-12" >
             <div className="flex justify-between">
                 <div className={`${isOpen ? "hidden" : ""}`}>
                     {/* Abrir sidebar */}
@@ -18,14 +18,14 @@ const Header: React.FC<HeaderProps> = ({ isOpen, setIsOpen }) =>{
                         <Menu className="w-6 h-6" />
                     </button>
                 </div>
-                <div>
+                <div className="flex gap-2 h-10">
                     <Link to="/home">
-                        <Button label="Home" icon="pi pi-home" />
+                        <Button label="Home" icon="pi pi-home" className="h-8" />
                     </Link>
                 </div>  
-                <div>
+                <div className="flex gap-2 h-10">
                     <Link to="/">
-                        <Button label="logout" icon="pi pi-user" onClick={logout} />
+                        <Button label="logout" icon="pi pi-user" onClick={logout} className="h-8" />
                     </Link>
                 </div>
             </div>
